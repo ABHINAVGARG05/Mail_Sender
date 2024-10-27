@@ -60,7 +60,7 @@ def upload():
 
     
     file = request.files.get('file')
-    return send_bulk_emails(mail, file)
+    return send_bulk_emails(email, file)
 
 @app.route('/get-mails',methods = ['GET'])
 @jwt_required()

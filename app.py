@@ -25,10 +25,9 @@ email = Mail(app)
 jwt = JWTManager(app)
 
 initialize_db()
-
+@cross_origin
 
 @app.route('/register',methods=['POST'])
-@cross_origin
 def register():
     data = request.get_json()
     response, status_code = register_user(data)

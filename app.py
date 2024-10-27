@@ -9,6 +9,9 @@ from flask_cors import cross_origin
 from services.auth_services import register_user, login_user
 from services.email_service import send_bulk_emails
 from models.mail_data import EmailRecords
+from flask_cors import CORS
+
+
 
 app = Flask(__name__)
 
@@ -25,7 +28,10 @@ email = Mail(app)
 jwt = JWTManager(app)
 
 initialize_db()
-@cross_origin
+from flask_cors import CORS
+
+CORS(app)
+@cross_origin()
 
 @app.route('/register',methods=['POST'])
 def register():

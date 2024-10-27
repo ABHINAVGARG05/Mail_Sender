@@ -23,7 +23,7 @@ def send_bulk_emails(mail, file):
             )
             msg.body = row.get('message')
             mail.send(msg)
-            email_record = EmailRecord(
+            email_record = EmailRecords(
                 recipient=row['email_id'],
                 subject=msg.subject,
                 message=msg.body,

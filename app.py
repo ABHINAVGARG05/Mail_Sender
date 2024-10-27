@@ -5,6 +5,7 @@ from db.database import initialize_db, Config
 from flask_mail import Mail, Message
 import pandas as pd
 import os
+from flask_cors import cross_origin
 from services.auth_services import register_user, login_user
 from services.email_service import send_bulk_emails
 from models.mail_data import EmailRecords
@@ -27,6 +28,7 @@ initialize_db()
 
 
 @app.route('/register',methods=['POST'])
+@cross_origin
 def register():
     data = request.get_json()
     response, status_code = register_user(data)

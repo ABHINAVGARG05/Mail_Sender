@@ -17,15 +17,15 @@ def send_bulk_emails(mail, file):
 
         for _, row in csv.iterrows():
             msg = Message(
-                subject='Hello from Abhinav Garg',
+                subject = row['team_name'],
                 recipients=[row['email_id']],
-                sender='Abhinav <abhichhrp@gmail.com>'
+                sender= os.getenv('MAIL_SENDER')
             )
             msg.body = row.get('message')
             mail.send(msg)
             email_record = EmailRecords(
                 recipient=row['email_id'],
-                subject=msg.subject,
+                subject=row['team_name'],
                 message=msg.body,
                 sender=current_user
             )

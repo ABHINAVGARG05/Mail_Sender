@@ -7,7 +7,7 @@ from flask_mail import Mail, Message
 import pandas as pd
 import os
 
-def send_bulk_emails(mail, file):
+def send_bulk_emails(mail, file,subject):
     current_user = get_jwt_identity()
     if file and file.filename.endswith('.csv'):
         csv = pd.read_csv(file)
@@ -17,9 +17,9 @@ def send_bulk_emails(mail, file):
 
         for _, row in csv.iterrows():
             msg = Message(
-                subject='Hello from Abhinav Garg',
+                subject=subject,
                 recipients=[row['email_id']],
-                sender='Abhinav <abhichhrp@gmail.com>'
+                sender= os.getenv('MAIL_SENDER')
             )
             msg.body = row.get('message')
             mail.send(msg)

@@ -28,8 +28,9 @@ email = Mail(app)
 jwt = JWTManager(app)
 
 initialize_db()
+from flask_cors import CORS
 
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://mfc-mailman.vercel.app"}})
 @cross_origin()
 
 @app.route('/register',methods=['POST'])
@@ -48,6 +49,7 @@ def login():
 @app.route('/',methods = ['GET'])
 def index():
     return render_template('index.html')
+
 @app.route('/upload',methods = ['POST'])
 @jwt_required()
 def upload():
@@ -58,9 +60,6 @@ def upload():
 
     
     file = request.files.get('file')
-    #sender = request.form.get('email')
-    #password = request.form.get('password')
-    #subject = request.form.get('subject')
     return send_bulk_emails(email, file)
 
 @app.route('/get-mails',methods = ['GET'])
